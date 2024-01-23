@@ -13,6 +13,20 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import "./styles/mainForm.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  contact: yup.string().required("Contact is required"),
+  gender: yup.string().required("Gender is required").oneOf(["Male", "Female"]),
+  dob: yup.string().required("Date of Birth is required"),
+  isWeekday: yup.boolean().required(),
+});
 
 interface FormData {
   name: string;
@@ -28,8 +42,15 @@ interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit, setValue, reset } = useForm<FormData>();
-
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
 
@@ -43,14 +64,14 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   const submitHandler = (data: FormData) => {
-    console.log(data);
     onSubmit(data);
     toast.success("Record Saved");
     reset();
+    setValue("isWeekday", false);
   };
 
   return (
-    <div className="formComponent">
+    <div className="formComponent" style={{ margin: 0, padding: 0 }}>
       <Paper className="paperComponent">
         <form className="mainForm" onSubmit={handleSubmit(submitHandler)}>
           <Grid container spacing={2}>
@@ -61,7 +82,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
               {...register("name")}
               margin="normal"
               size="small"
-              required
+              error={!!errors.name}
+              helperText={errors.name?.message}
             />
 
             <TextField
@@ -70,6 +92,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
               margin="normal"
               size="small"
               fullWidth
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
 
             <TextField
@@ -79,6 +103,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
               type="number"
               size="small"
               fullWidth
+              error={!!errors.contact}
+              helperText={errors.contact?.message}
             />
             <Grid item xs={12} sm={6}>
               <RadioGroup
@@ -107,6 +133,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
                 type="date"
                 onChange={handleInputChange}
                 size="small"
+                error={!!errors.dob}
+                helperText={errors.dob?.message}
               />
             </Grid>
 
@@ -121,13 +149,16 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
                 }
                 label="Weekday"
               />
+              {errors.isWeekday && <p className="error">Weekday is required</p>}
+            </Grid>
+            <Grid xs={12}>
+              <div className="submitBtn">
+                <Button type="submit" variant="contained" color="primary">
+                  Submit
+                </Button>
+              </div>
             </Grid>
           </Grid>
-          <div className="submitBtn">
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
-          </div>
         </form>
       </Paper>
     </div>
