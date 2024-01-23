@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+import "./styles/modal.css";
 
 interface EditModalProps {
   open: boolean;
@@ -66,24 +67,9 @@ const EditModal: React.FC<EditModalProps> = ({
   }, [rowData, setValue]);
 
   return (
-    <Modal
-      style={{
-        left: "500px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "450px",
-        height: "400px",
-        padding: "20px", // Adjust the padding
-        margin: "10px",
-        borderRadius: "4px",
-        backgroundColor: "#f0f1f2",
-      }}
-      open={open}
-      onClose={onClose}
-    >
+    <Modal className="modal" open={open} onClose={onClose}>
       <Box sx={style}>
-        <h3 style={{ margin: 0 }}>Edit Entries</h3>
+        <h3>Edit Entries</h3>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <TextField
             label="Name"
@@ -110,8 +96,8 @@ const EditModal: React.FC<EditModalProps> = ({
             }
             label="Weekday"
           />
-          <FormControl style={{ paddingLeft: "60px" }}>
-            <FormLabel component="legend">Gender</FormLabel>
+          <FormControl className="genderField" style={{ paddingLeft: "60px" }}>
+            <FormLabel>Gender</FormLabel>
             <RadioGroup
               row
               aria-label="gender"
@@ -141,13 +127,7 @@ const EditModal: React.FC<EditModalProps> = ({
               size="small"
             />
           </FormControl>
-          <div
-            style={{
-              justifyContent: "center",
-              display: "flex",
-              padding: "40px",
-            }}
-          >
+          <div className="modalSaveBtn">
             <Button type="submit" variant="contained" color="primary">
               Save
             </Button>

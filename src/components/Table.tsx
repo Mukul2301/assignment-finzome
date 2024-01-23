@@ -9,7 +9,7 @@ import {
   Button,
   TableContainer,
 } from "@mui/material";
-import "../styles.css";
+import "./styles/table.css";
 import { toast } from "react-toastify";
 
 export interface RowData {
@@ -49,20 +49,9 @@ const DataTable: React.FC<TableProps> = ({
     toast.success("Record Deleted");
   };
   return (
-    <TableContainer
-      style={{
-        minWidth: 650,
-        maxHeight: 300,
-        overflowY: "auto",
-      }}
-    >
-      <Table
-        style={{
-          maxHeight: 300,
-          overflowY: "auto",
-        }}
-        {...getTableProps()}
-      >
+    <TableContainer className="tableContainer">
+      <h1>Registration Table</h1>
+      <Table {...getTableProps()}>
         <TableHead>
           <TableRow>
             {columns.map((column) => (

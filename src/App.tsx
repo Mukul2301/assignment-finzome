@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "./components/Form";
 import DataTable from "./components/Table";
 import EditModal from "./components/EditModal";
-import "./styles.css";
+import "./app.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

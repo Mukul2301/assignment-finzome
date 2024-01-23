@@ -12,6 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import "./styles/mainForm.css";
 
 interface FormData {
   name: string;
@@ -49,30 +50,11 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: 0,
-      }}
-    >
-      <Paper
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "450px",
-          height: "450px",
-          padding: "20px",
-          margin: "10px",
-          borderRadius: "4px",
-          backgroundColor: "#f0f1f2",
-        }}
-      >
-        <form style={{ maxWidth: 400 }} onSubmit={handleSubmit(submitHandler)}>
+    <div className="formComponent">
+      <Paper className="paperComponent">
+        <form className="mainForm" onSubmit={handleSubmit(submitHandler)}>
           <Grid container spacing={2}>
-            <h2 style={{ marginBottom: 0 }}>Registration Form</h2>
+            <h2>Registration Form</h2>
             <TextField
               fullWidth
               label="Name"
@@ -141,13 +123,7 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
               />
             </Grid>
           </Grid>
-          <div
-            style={{
-              margin: "20px",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
+          <div className="submitBtn">
             <Button type="submit" variant="contained" color="primary">
               Submit
             </Button>

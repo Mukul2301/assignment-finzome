@@ -1,0 +1,22 @@
+h3 {
+  margin: 0;
+}
+
+.modal {
+  left: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 400px;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  background-color: #f0f1f2;
+}
+
+.modalSaveBtn {
+  justify-content: "center";
+  display: flex;
+  padding: 40px;
+}
